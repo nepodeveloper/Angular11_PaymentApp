@@ -17,17 +17,40 @@ export class PaymentDetailFormComponent implements OnInit {
   }
 
   onSumbit(form:NgForm){
+    if(this.service.formData.paymentDetailId == 0){
+      this.insertRecord(form);
+    }
+    else{
+      this.updateRecord(form);
+    }
+  }
+
+  insertRecord(form :NgForm){
     this.service.postPaymentDetail().subscribe(
       res => {
         this.resetForm(form)
         this.toastr.success('Sumbitted Successfully', 'Payment Details')
-
       },
       err => {
-
+        this.toastr.warning('Not Sumbitted Successfully', 'Payment Details')
       }
     );
   }
+
+  updateRecord(form: NgForm){
+    this.service.putPaymentDetail().subscribe(
+      res => {
+        this.resetForm(form)
+        this.service.refreshList();
+        this.toastr.info('Updated Successfully', 'Payment Details')
+      },
+      err => {
+        this.toastr.warning('Not Updated Successfully', 'Payment Details')
+      }
+    );
+  }
+
+  
 
   resetForm(form : NgForm){
     form.form.reset();

@@ -9,17 +9,27 @@ export class PaymentDetailService {
 
   constructor(private http: HttpClient) { }
 
-  readonly baseURL = 'http://localhost:39029/api/PaymentDetail'
-  formData: PaymentDetail = new PaymentDetail();
-  list : PaymentDetail [];
+  
+    //Please change this into your own local host__NepoNed
+    readonly baseURL = 'http://localhost:39029/api/PaymentDetail'
+    formData: PaymentDetail = new PaymentDetail();
+    list : PaymentDetail [];
 
-  postPaymentDetail(){
-   return this.http.post(this.baseURL,this.formData);
-  }
+    postPaymentDetail(){
+    return this.http.post(this.baseURL,this.formData);
+    }
 
-  refreshList(){
-    this.http.get(this.baseURL)
-    .toPromise()
-    .then(res => this.list = res as PaymentDetail[]);
-  }
+    putPaymentDetail(){
+      return this.http.put(`${this.baseURL}/${this.formData.paymentDetailId}`,this.formData);
+    }
+
+    deletePaymentDetail(id: number){
+      return this.http.delete(`${this.baseURL}/${id}`);
+    }
+
+    refreshList(){
+      this.http.get(this.baseURL)
+      .toPromise()
+      .then(res => this.list = res as PaymentDetail[]);
+    }
 }
