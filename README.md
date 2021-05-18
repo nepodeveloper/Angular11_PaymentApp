@@ -1,6 +1,6 @@
 # Angular11_PaymentApp
 
-##Steps to run app
+#Steps to run app
 
 1) Install @latest nodeJS "https://nodejs.org/en/download/"
 
